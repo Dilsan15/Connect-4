@@ -1,17 +1,14 @@
 import numpy as np
 import pygame
-import sys
 import math
 
-import os
+ROWCOUNT = 6
+COLUMCOUNT = 7
 
-rOWCOUNT = 6
-cOLUMCOUNT = 7
-
-bLUE = (0, 0, 225)
-bLACK = (0, 0, 0)
-rED = (255, 0, 0)
-yELLOW = (255, 255, 0)
+BLUE = (0, 0, 225)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
 
 
 def createBoard():
@@ -24,56 +21,54 @@ def dropPiece(board, row, col, piece):
 
 
 def isValidLocation(board, col):
-    return board[rOWCOUNT - 1][col] == 0
+    return board[ROWCOUNT - 1][col] == 0
 
 
 def getNextOpenRow(board, col):
-    for r in range(rOWCOUNT):
+    for r in range(ROWCOUNT):
         if board[r][col] == 0:
             return r
 
 
 def winningMove(board, piece):
-    for c in range(cOLUMCOUNT - 3):
-        for r in range(rOWCOUNT):
-            if board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][
-                c + 3] == piece:
+    for c in range(COLUMCOUNT - 3):
+        for r in range(ROWCOUNT):
+            if board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][c + 3] == piece:
                 return True
 
-    for c in range(cOLUMCOUNT):
-        for r in range(rOWCOUNT - 3):
-            if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][
-                c] == piece:
+    for c in range(COLUMCOUNT):
+        for r in range(ROWCOUNT - 3):
+            if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][c] == piece:
                 return True
 
-    for c in range(cOLUMCOUNT - 3):
-        for r in range(rOWCOUNT - 3):
+    for c in range(COLUMCOUNT - 3):
+        for r in range(ROWCOUNT - 3):
             if board[r][c] == piece and board[r + 1][c + 1] == piece and board[r + 2][c + 2] == piece and \
                     board[r + 3][c + 3] == piece:
                 return True
 
-    for c in range(cOLUMCOUNT - 3):
-        for r in range(3, rOWCOUNT):
+    for c in range(COLUMCOUNT - 3):
+        for r in range(3, ROWCOUNT):
             if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and \
                     board[r - 3][c + 3] == piece:
                 return True
 
 
 def drawBoard(board):
-    for c in range(cOLUMCOUNT):
-        for r in range(rOWCOUNT):
-            pygame.draw.rect(screen, bLUE, (c * sQUARESIZE, r * sQUARESIZE + sQUARESIZE, sQUARESIZE, sQUARESIZE))
-            pygame.draw.circle(screen, bLACK, (
-                int(c * sQUARESIZE + sQUARESIZE / 2), int(r * sQUARESIZE + sQUARESIZE + sQUARESIZE / 2)), rADIUS)
+    for c in range(COLUMCOUNT):
+        for r in range(ROWCOUNT):
+            pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
+            pygame.draw.circle(screen, BLACK, (
+                int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), rADIUS)
 
-    for c in range(cOLUMCOUNT):
-        for r in range(rOWCOUNT):
+    for c in range(COLUMCOUNT):
+        for r in range(ROWCOUNT):
             if board[r][c] == 1:
-                pygame.draw.circle(screen, rED, (
-                    int(c * sQUARESIZE + sQUARESIZE / 2), Height - int(r * sQUARESIZE + sQUARESIZE / 2)), rADIUS)
+                pygame.draw.circle(screen, RED, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), Height - int(r * SQUARESIZE + SQUARESIZE / 2)), rADIUS)
             elif board[r][c] == 2:
-                pygame.draw.circle(screen, yELLOW, (
-                    int(c * sQUARESIZE + sQUARESIZE / 2), Height - int(r * sQUARESIZE + sQUARESIZE / 2)), rADIUS)
+                pygame.draw.circle(screen, YELLOW, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), Height - int(r * SQUARESIZE + SQUARESIZE / 2)), rADIUS)
     pygame.display.update()
 
 
@@ -82,14 +77,14 @@ myBoard = createBoard()
 gameOver = False
 turn = 0
 pygame.init()
-sQUARESIZE = 100
+SQUARESIZE = 100
 
-Width = cOLUMCOUNT * sQUARESIZE
-Height = (rOWCOUNT + 1) * sQUARESIZE
+Width = COLUMCOUNT * SQUARESIZE
+Height = (ROWCOUNT + 1) * SQUARESIZE
 
 Size = (Width, Height)
 
-rADIUS = int(sQUARESIZE // 2 - 5)
+rADIUS = int(SQUARESIZE // 2 - 5)
 
 screen = pygame.display.set_mode(Size)
 drawBoard(myBoard)
@@ -103,38 +98,38 @@ while not gameOver:
             sys.exit()
 
         if event.type == pygame.MOUSEMOTION:
-            pygame.draw.rect(screen, bLACK, (0, 0, Width, sQUARESIZE))
+            pygame.draw.rect(screen, BLACK, (0, 0, Width, SQUARESIZE))
             posX = event.pos[0]
             if turn == 0:
-                pygame.draw.circle(screen, rED, (posX, int(sQUARESIZE / 2)), rADIUS)
+                pygame.draw.circle(screen, RED, (posX, int(SQUARESIZE / 2)), rADIUS)
             else:
-                pygame.draw.circle(screen, yELLOW, (posX, int(sQUARESIZE / 2)), rADIUS)
+                pygame.draw.circle(screen, YELLOW, (posX, int(SQUARESIZE / 2)), rADIUS)
             pygame.display.update()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            pygame.draw.rect(screen, bLACK, (0, 0, Width, sQUARESIZE))
+            pygame.draw.rect(screen, BLACK, (0, 0, Width, SQUARESIZE))
 
             if turn == 0:
                 posX = event.pos[0]
-                Col = int(math.floor(posX / sQUARESIZE))
+                Col = int(math.floor(posX / SQUARESIZE))
                 if isValidLocation(myBoard, Col):
                     row = getNextOpenRow(myBoard, Col)
                     dropPiece(myBoard, row, Col, 1)
 
                     if winningMove(myBoard, 1):
-                        Label = myFont.render("Player 1 Wins", True, rED)
+                        Label = myFont.render("Player 1 Wins", True, RED)
                         screen.blit(Label, (40, 10))
                         gameOver = True
 
             else:
                 posX = event.pos[0]
-                Col = int(math.floor(posX / sQUARESIZE))
+                Col = int(math.floor(posX / SQUARESIZE))
                 if isValidLocation(myBoard, Col):
                     row = getNextOpenRow(myBoard, Col)
                     dropPiece(myBoard, row, Col, 2)
 
                     if winningMove(myBoard, 2):
-                        Label = myFont.render("Player 2 Wins", True, yELLOW)
+                        Label = myFont.render("Player 2 Wins", True, YELLOW)
                         screen.blit(Label, (40, 10))
                         gameOver = True
 
