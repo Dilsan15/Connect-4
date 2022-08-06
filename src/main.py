@@ -28,12 +28,13 @@ def drop_piece(board, row_num, col_num, piece):
 def is_valid_location(board, col_num):
     return board[ROW_COUNT - 1][col_num] == 0
 
+
 # Gets information about what height the token being place is at
 def get_next_own_row(board, col_num):
     for r in range(ROW_COUNT):
         if board[r][col_num] == 0:
-            print(r)
             return r
+
 
 # Figures out if a winning move has been made
 def winning_move(board, piece):
@@ -61,6 +62,7 @@ def winning_move(board, piece):
                     board[r - 3][c + 3] == piece:
                 return True
 
+
 # Makes the board visible
 def draw_board(board):
     for c in range(COLUMN_COUNT):
@@ -82,6 +84,7 @@ def draw_board(board):
                     int(c * SQUARE_SIZE + SQUARE_SIZE / 2), board_height - int(r * SQUARE_SIZE + SQUARE_SIZE / 2)),
                                    TOKEN_RADIUS)
     pygame.display.update()
+
 
 # Variables which are used as assets for the GUI and Initialization of pygame
 my_board = create_board()
