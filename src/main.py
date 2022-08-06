@@ -32,7 +32,7 @@ def is_valid_location(board, col_num):
 # Gets information about what height the token being place is at
 def get_next_own_row(board, col_num):
     for r in range(ROW_COUNT):
-        if board[r][col_num] == 0:
+        if board[r][col_nm] == 0:
             return r
 
 
