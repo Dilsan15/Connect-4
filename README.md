@@ -18,7 +18,7 @@
 <h2>Files</h2>
 
 <ul>
-  <li>Main: Defines functions, and contains logic for code (PS. This prj is less modularized due to me being a novice programmer at the time) </li>
+  <li>Main: Defines functions, and contains logic for code (PS. This project is less modularized due to me being a novice programmer at the time) </li>
 </ul>
 
 <h2>Versions</h2>
